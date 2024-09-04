@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_options/models/option.dart';
+import 'package:product_options/models/variation.dart';
 import 'package:product_options/pages/option_settings_page.dart';
 import 'package:product_options/pages/variations_settings_page.dart';
 import 'package:product_options/state/options_state.dart';
@@ -21,14 +22,15 @@ class _VariationsPageState extends State<VariationsPage> {
   @override
   Widget build(BuildContext context) {
     OptionState state = Provider.of<OptionState>(context);
+    List<ProductVariation> allVariations = state.generateCombinations();
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          
           children: <Widget>[
             const Text(
               'Setup Product\nVariations',
@@ -41,26 +43,36 @@ class _VariationsPageState extends State<VariationsPage> {
               height: 30,
             ),
              ListView.builder(
-               shrinkWrap: true,
-             itemCount: state.variations.length,
+             physics: NeverScrollableScrollPhysics(),
+             shrinkWrap: true,
+             itemCount: allVariations.length,
              itemBuilder: (context, index){
              
-               return ListTile(
+               return CheckboxListTile(
+                onChanged: (val){
+                  if(val!){
+                    state.addVariation(allVariations[index],null);
+                  }else{
+                    state.removeVariation(allVariations[index]);
+                  }
+                  
+                },
+                value: state.variations.contains(allVariations[index]),
                  contentPadding: EdgeInsets.zero,
-                 leading: Text((index+1).toString()),
-                 title: Text(state.variations[index].description),
-                 subtitle: Text('Ksh.${state.variations[index].price}'),
-                 trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
+                controlAffinity: ListTileControlAffinity.leading,
+                 title: Text(allVariations[index].description),
+                 subtitle: Text('Ksh.${allVariations[index].price}'),
+                //  trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
                    
-                   final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage(option: state.options[index],)));
-                   state.variations.removeAt(index);
-                   setState(() {
+                //    final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage(option: state.options[index],)));
+                //    state.variations.removeAt(index);
+                //    setState(() {
                      
-                     if(result!=null){
-                     state.variations.add(result);
-                   }
-                   });
-                 },),
+                //      if(result!=null){
+                //      state.variations.add(result);
+                //    }
+                //    });
+                //  },),
                );
              }
              ),

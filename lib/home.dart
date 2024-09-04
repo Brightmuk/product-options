@@ -107,19 +107,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               : Container(),
                Divider(height: 5,color: Colors.grey[100],),
-              ListTile(
+              state.options.length>1? ListTile(
                 subtitle: Text('Configure variations'),
                 onTap: (){
                    Navigator.of(context).push(
                         MaterialPageRoute(builder: (ctx) => VariationsPage()));
                 },
                 title: Text('Variations'),
-                trailing: const Icon(
+                trailing: SizedBox(
+                    width: 20,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(state.variations.length.toString()),
+                        const Icon(
                           Icons.arrow_forward_ios,
                           size: 14,
                         ),
-              ),
-               Divider(height: 5,color: Colors.grey[100],),
+                      ],
+                    ),
+                  ),
+              ):Container(),
+              state.options.length>1? Divider(height: 5,color: Colors.grey[100],):Container(),
         ],
       ),
     );
