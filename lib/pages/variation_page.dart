@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:product_options/models/option.dart';
 import 'package:product_options/pages/option_settings_page.dart';
+import 'package:product_options/pages/variations_settings_page.dart';
 import 'package:product_options/state/options_state.dart';
 import 'package:product_options/styles.dart';
 import 'package:provider/provider.dart';
 
-class OptionsPage extends StatefulWidget {
-  const OptionsPage({super.key});
+class VariationsPage extends StatefulWidget {
+  const VariationsPage({super.key});
 
   @override
-  State<OptionsPage> createState() => _OptionsPageState();
+  State<VariationsPage> createState() => _VariationsPageState();
 }
 
-class _OptionsPageState extends State<OptionsPage> {
+class _VariationsPageState extends State<VariationsPage> {
   
   TextEditingController _controller = TextEditingController();
 
@@ -30,7 +31,7 @@ class _OptionsPageState extends State<OptionsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Setup Product\nOptions',
+              'Setup Product\nVariations',
               style: TextStyle(
                   color: Color.fromARGB(255, 251, 148, 159),
                   fontSize: 30,
@@ -42,12 +43,12 @@ class _OptionsPageState extends State<OptionsPage> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: Icon(Icons.add),
-              title: Text('Add Option'),
+              title: Text('Add Variation'),
               onTap: ()async{
-                final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionSettingsPage()));
+                final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage()));
                 setState(() {
                    if(result!=null){
-                  state.options.add(result);
+                  state.variations.add(result);
                 }
                 });
                
@@ -59,22 +60,22 @@ class _OptionsPageState extends State<OptionsPage> {
                 constraints: BoxConstraints(maxHeight: 300),
                 child: ListView.builder(
                   shrinkWrap: true,
-                itemCount: state.options.length,
+                itemCount: state.variations.length,
                 itemBuilder: (context, index){
                 
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Text((index+1).toString()),
-                    title: Text(state.options[index].name),
-                    subtitle: Text(state.options[index].values.join(', ')),
+                    title: Text(state.variations[index].description),
+                    subtitle: Text('Ksh.${state.variations[index].price}'),
                     trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
                       
-                      final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionSettingsPage(option: state.options[index],)));
-                      state.options.removeAt(index);
+                      final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage(option: state.options[index],)));
+                      state.variations.removeAt(index);
                       setState(() {
                         
                         if(result!=null){
-                        state.options.add(result);
+                        state.variations.add(result);
                       }
                       });
                     },),

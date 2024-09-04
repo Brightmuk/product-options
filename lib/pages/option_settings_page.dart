@@ -3,15 +3,15 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:product_options/models/option.dart';
 import 'package:product_options/styles.dart';
 
-class OptionValuesPage extends StatefulWidget {
+class OptionSettingsPage extends StatefulWidget {
   final ProductOption? option;
-  const OptionValuesPage({super.key, this.option});
+  const OptionSettingsPage({super.key, this.option});
 
   @override
-  State<OptionValuesPage> createState() => _OptionValuesPageState();
+  State<OptionSettingsPage> createState() => _OptionSettingsPageState();
 }
 
-class _OptionValuesPageState extends State<OptionValuesPage> {
+class _OptionSettingsPageState extends State<OptionSettingsPage> {
   List<String> values = [];
   TextEditingController _valuesController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -38,7 +38,7 @@ class _OptionValuesPageState extends State<OptionValuesPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Add Product\nOption',
+                'Configure Product\nOption',
                 style: TextStyle(
                     color: Color.fromARGB(255, 251, 148, 159),
                     fontSize: 30,
