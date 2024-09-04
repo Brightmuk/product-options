@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:product_options/pages/options_page.dart';
+import 'package:product_options/state/options_state.dart';
 import 'package:product_options/styles.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,19 +18,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    OptionState state = Provider.of<OptionState>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 100,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Nike Nero',
           style: TextStyle(
               color: Color.fromARGB(255, 251, 148, 159),
               fontSize: 30,
               fontWeight: FontWeight.bold),
         ),
-        bottom: PreferredSize(
+        bottom: const PreferredSize(
           preferredSize: Size(0, 0),
           child: Text('Ksh. 3,500',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
         ),
@@ -38,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Image.asset(
@@ -57,8 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
             optionsEnabled
                 ? ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('Setup Options'),
-                    trailing: Icon(
+                    title: const Text('Setup Options'),
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       size: 14,
                     ),

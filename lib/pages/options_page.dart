@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:product_options/models/option.dart';
 import 'package:product_options/pages/option_values_page.dart';
+import 'package:product_options/state/options_state.dart';
 import 'package:product_options/styles.dart';
+import 'package:provider/provider.dart';
 
 class OptionsPage extends StatefulWidget {
   const OptionsPage({super.key});
@@ -11,12 +13,14 @@ class OptionsPage extends StatefulWidget {
 }
 
 class _OptionsPageState extends State<OptionsPage> {
-  List<ProductOption> options = [];
+  
   TextEditingController _controller = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
+    OptionState state = Provider.of<OptionState>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(),
@@ -25,14 +29,14 @@ class _OptionsPageState extends State<OptionsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Setup Product\nOptions',
               style: TextStyle(
                   color: Color.fromARGB(255, 251, 148, 159),
                   fontSize: 30,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ListTile(
@@ -43,7 +47,7 @@ class _OptionsPageState extends State<OptionsPage> {
                 final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionValuesPage()));
                 setState(() {
                    if(result!=null){
-                  options.add(result);
+                  state.options.add(result);
                 }
                 });
                
@@ -55,22 +59,22 @@ class _OptionsPageState extends State<OptionsPage> {
                 constraints: BoxConstraints(maxHeight: 300),
                 child: ListView.builder(
                   shrinkWrap: true,
-                itemCount: options.length,
+                itemCount: state.options.length,
                 itemBuilder: (context, index){
                 
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Text((index+1).toString()),
-                    title: Text(options[index].name),
-                    subtitle: Text(options[index].values.join(', ')),
+                    title: Text(state.options[index].name),
+                    subtitle: Text(state.options[index].values.join(', ')),
                     trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
                       
-                      final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionValuesPage(option: options[index],)));
-                      options.removeAt(index);
+                      final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionValuesPage(option: state.options[index],)));
+                      state.options.removeAt(index);
                       setState(() {
                         
                         if(result!=null){
-                        options.add(result);
+                        state.options.add(result);
                       }
                       });
                     },),
