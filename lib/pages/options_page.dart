@@ -13,9 +13,7 @@ class OptionsPage extends StatefulWidget {
 }
 
 class _OptionsPageState extends State<OptionsPage> {
-  
   TextEditingController _controller = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,46 +41,48 @@ class _OptionsPageState extends State<OptionsPage> {
               contentPadding: EdgeInsets.zero,
               leading: Icon(Icons.add),
               title: Text('Add Option'),
-              onTap: ()async{
-                final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionSettingsPage()));
+              onTap: () async {
+                final result = await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => OptionSettingsPage()));
                 setState(() {
-                   if(result!=null){
-                  state.options.add(result);
-                }
+                  if (result != null) {
+                    state.options.add(result);
+                  }
                 });
-               
               },
               splashColor: AppStyles().themeColorLight,
             ),
-             Flexible(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: 300),
-                child: ListView.builder(
+            Flexible(
+                child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 300),
+              child: ListView.builder(
                   shrinkWrap: true,
-                itemCount: state.options.length,
-                itemBuilder: (context, index){
-                
-                  return ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Text((index+1).toString()),
-                    title: Text(state.options[index].name),
-                    subtitle: Text(state.options[index].values.join(', ')),
-                    trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
-                      
-                      final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OptionSettingsPage(option: state.options[index],)));
-                      state.options.removeAt(index);
-                      setState(() {
-                        
-                        if(result!=null){
-                        state.options.add(result);
-                      }
-                      });
-                    },),
-                  );
-                }
-                ),
-              )),
-           
+                  itemCount: state.options.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Text((index + 1).toString()),
+                      title: Text(state.options[index].name),
+                      subtitle: Text(state.options[index].values.join(', ')),
+                      trailing: IconButton(
+                        icon: Icon(Icons.settings_outlined),
+                        onPressed: () async {
+                          final result = await Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (ctx) => OptionSettingsPage(
+                                        option: state.options[index],
+                                      )));
+                         
+                    
+                            if (result != null) {
+                               state.addOption(index, result);
+                            }
+                          
+                        },
+                      ),
+                    );
+                  }),
+            )),
           ],
         ),
       ),
