@@ -1,7 +1,14 @@
 # Product Options
 ## _Shopify like way to add product options & variations_
 #
+ 
+### Download APK: 
+[app-arm64-v8a-release.apk](apk/app-arm64-v8a-release.apk)
+[app-armeabi-v7a-release.apk](apk/app-armeabi-v7a-release.apk)
+[app-x86_64-release.apk](apk/app-x86_64-release.apk)
+
 #
+
 
 ![Home screenshot](assets/screenshots/home_screenshot.png) ![Variations screenshot](assets/screenshots/variations_screenshot.png)
 
@@ -19,7 +26,7 @@ Flutter based project on how users can add E-commerce product options and varian
 
 
 
-## _Chalenges encountered_
+## _Challenges encountered_
 During the creation of this software, here are some of the callenges i encountered and how i tackled them.
 
 | Challenge | Description| Solution |
@@ -32,7 +39,7 @@ During the creation of this software, here are some of the callenges i encounter
 ## Installation
 
 This will work on Android devices.
-Download the apk and install on your device to use.
+Download the apk from the link above and install on your device to use.
 
 ## Development
 
