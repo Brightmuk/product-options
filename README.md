@@ -1,5 +1,8 @@
 # Product Options
 ## _Shopify like way to add product options & variations_
+#
+#
+
 ![Home screenshot](assets/screenshots/home_screenshot.png) ![Variations screenshot](assets/screenshots/variations_screenshot.png)
 
 Flutter based project on how users can add E-commerce product options and variants UI/ UX as in [Shopify](https://admin.shopify.com/)
@@ -8,11 +11,22 @@ Flutter based project on how users can add E-commerce product options and varian
 
 ## Higlighted features 
 
+- Auto generating product variations
+- Selecting variations
+- Modifying product variation details like `price` & `quantity`
 - Adding product options
 - Editing a product option
-- Auto generating product variations
-- Modifying product variation details like price & Quantity
-- Selecting variations
+
+
+
+## _Chalenges encountered_
+During the creation of this software, here are some of the callenges i encountered and how i tackled them.
+
+| Challenge | Description| Solution |
+| ------ | ------ |---|
+|Ux Design| Since the example shown on [this video](https://www.youtube.com/watch?v=njdHCpildhE) / live expeience on  [Shopify](https://admin.shopify.com/) is based o a desktop view, adapting the same view on mobile was a challenge due to size constraints|Design a multi screen interface for different actions |
+|State management| Passing data to screens/Widgets was prone to errors and redundant | Implementing state management with the use of `Provider` and `ChangeNotifier` |
+|Generating product variations | Product variations are a unique combination of product options such as color and size. e.g `Large Black`, `Large white`, `Small Black`, `Small white`. It was neccessary that these combinations were generated every time that product options were updated without redundance such as having `Small Black` and `Black Small` since thats the same thing. A regular nested for loop would have therefore not worked in this case|We create a recursive function to generate combinations of the variations dynamically|
 
 
 ## Installation
@@ -51,7 +65,7 @@ flutter run
 
 MIT
 
-**Free Software, Hell Yeah!**
+**Free Software**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
