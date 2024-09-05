@@ -15,6 +15,7 @@ class OptionsPage extends StatefulWidget {
 class _OptionsPageState extends State<OptionsPage> {
   TextEditingController _controller = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     OptionState state = Provider.of<OptionState>(context);
@@ -46,8 +47,8 @@ class _OptionsPageState extends State<OptionsPage> {
                     MaterialPageRoute(builder: (ctx) => OptionSettingsPage()));
                 setState(() {
                   if (result != null) {
-                    state.options.add(result);
-                  }
+                               state.modifyOption(null, result);
+                    }
                 });
               },
               splashColor: AppStyles().themeColorLight,
@@ -75,7 +76,7 @@ class _OptionsPageState extends State<OptionsPage> {
                          
                     
                             if (result != null) {
-                               state.addOption(index, result);
+                               state.modifyOption(index, result);
                             }
                           
                         },

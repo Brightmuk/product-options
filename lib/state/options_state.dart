@@ -4,24 +4,40 @@ import 'package:product_options/models/variation.dart';
 
 class OptionState extends ChangeNotifier {
   List<ProductOption> options = [];
-  void addOption(int index, ProductOption option) {
-    options.removeAt(index);
+  void modifyOption(int? index, ProductOption option) {
+    if(index!=null){
+      options.removeAt(index);
+    }
     options.add(option);
+    variations=generateCombinations();
     notifyListeners();
   }
 
   void removeOption(ProductOption option) {
     options.remove(option);
+    variations.clear();
+     variations=generateCombinations();
     notifyListeners();
   }
 
   List<ProductVariation> variations = [];
-  void addVariation(ProductVariation variation,int? index,) {
-    if(index!=null){
-      //Used when an edit operation is done
-      variations.removeAt(index);
-    }
-    variations.add(variation);
+  List<String> selectedVariation = [];
+
+  void modifyVariation(
+    ProductVariation variation,
+    int index,
+  ) {
+    variations.replaceRange(index, index + 1, [variation]);
+    notifyListeners();
+  }
+
+  void selectVariation(ProductVariation variation) {
+    selectedVariation.add(variation.description);
+    notifyListeners();
+  }
+
+  void unselectVariation(ProductVariation variation) {
+    selectedVariation.remove(variation.description);
     notifyListeners();
   }
 
@@ -31,6 +47,7 @@ class OptionState extends ChangeNotifier {
   }
 
   List<ProductVariation> generateCombinations() {
+    print('got here');
     List<ProductVariation> combinations = [];
 
     void generate(List<String> current, int depth) {
@@ -46,6 +63,7 @@ class OptionState extends ChangeNotifier {
     }
 
     generate([], 0);
+    print('Finished');
     return combinations;
   }
 }

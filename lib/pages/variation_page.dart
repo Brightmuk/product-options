@@ -15,14 +15,11 @@ class VariationsPage extends StatefulWidget {
 }
 
 class _VariationsPageState extends State<VariationsPage> {
-  
-  TextEditingController _controller = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
     OptionState state = Provider.of<OptionState>(context);
-    List<ProductVariation> allVariations = state.generateCombinations();
+    
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,40 +40,40 @@ class _VariationsPageState extends State<VariationsPage> {
               height: 30,
             ),
              ListView.builder(
-             physics: NeverScrollableScrollPhysics(),
-             shrinkWrap: true,
-             itemCount: allVariations.length,
-             itemBuilder: (context, index){
-             
-               return CheckboxListTile(
-                onChanged: (val){
-                  if(val!){
-                    state.addVariation(allVariations[index],null);
-                  }else{
-                    state.removeVariation(allVariations[index]);
-                  }
-                  
-                },
-                value: state.variations.contains(allVariations[index]),
-                 contentPadding: EdgeInsets.zero,
-                controlAffinity: ListTileControlAffinity.leading,
-                 title: Text(allVariations[index].description),
-                 subtitle: Text('Ksh.${allVariations[index].price}'),
-                //  trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
-                   
-                //    final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage(option: state.options[index],)));
-                //    state.variations.removeAt(index);
-                //    setState(() {
-                     
-                //      if(result!=null){
-                //      state.variations.add(result);
-                //    }
-                //    });
-                //  },),
-               );
-             }
-             ),
-           
+                 physics: NeverScrollableScrollPhysics(),
+                 shrinkWrap: true,
+                 itemCount: state.variations.length,
+                 itemBuilder: (context, index){
+                 
+                   return ListTile(
+                    leading: Checkbox(
+                    onChanged: (val){
+                      if(val!){
+                        state.selectVariation(state.variations[index]);
+                      }else{
+                        state.unselectVariation(state.variations[index]);
+                      }
+                      
+                    },
+                    value: state.selectedVariation.contains(state.variations[index].description),
+                    ),
+                 
+                     contentPadding: EdgeInsets.zero,
+                    
+                     title: Text(state.variations[index].description),
+                     subtitle: Text('${state.variations[index].quantity} pcs @Ksh.${state.variations[index].price}'),
+                     trailing: IconButton(icon: Icon(Icons.settings_outlined),onPressed: ()async{
+                       
+                       final result = await Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>VariationSettingsPage(variation: state.variations[index],)));
+                       if(result!=null){
+                        state.modifyVariation(result, index);
+                       }
+                 
+                     },),
+                   );
+                 }
+                 )
+          
           ],
         ),
       ),

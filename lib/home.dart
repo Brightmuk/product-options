@@ -35,7 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         bottom: const PreferredSize(
           preferredSize: Size(0, 0),
-          child: Text('Ksh. 3,500',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+          child: Text(
+            'Ksh. 3,500',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: Column(
@@ -50,9 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 300,
             ),
           ),
-           Divider(height: 5,color: Colors.grey[100],),
+          Divider(
+            height: 5,
+            color: Colors.grey[100],
+          ),
           SwitchListTile(
-              
               title: Text('Enable product options'),
               value: optionsEnabled,
               onChanged: (val) {
@@ -60,33 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   optionsEnabled = val;
                 });
               }),
-             optionsEnabled? Divider(height: 5,color: Colors.grey[100],):Container(),
-          optionsEnabled
-              ? ListTile(
-                 
-                  title: const Text('Setup Options'),
-                  subtitle: SizedBox(
-                    width: MediaQuery.of(context).size.width*0.5,
-                    height: 30,
-                    child: ListView.separated(
-                      separatorBuilder: (ctx,index){
-                        return SizedBox(width: 5,);
-                      },
-                      itemCount: state.options.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (ctx,index){
-                        return Container(
-                         
-                          padding: EdgeInsets.symmetric(horizontal: 7,vertical: 3),
-                         margin: EdgeInsets.only(top: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 52, 52, 52)
-                          ),
-                          child: Text(state.options[index].name,style: TextStyle(color: Colors.white),),
-                        );
-                    }),
-                  ),
+              SizedBox(height: 20,),
+          optionsEnabled? Card(
+            
+            elevation: 2,
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => const OptionsPage()));
+                  },
+                  title: Text('Setup Options'),
+                  subtitle: Text('Add upto 20 options'),
                   trailing: SizedBox(
                     width: 20,
                     child: Row(
@@ -100,26 +93,58 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 30,
+                    child: ListView.separated(
+                        separatorBuilder: (ctx, index) {
+                          return SizedBox(
+                            width: 5,
+                          );
+                        },
+                        itemCount: state.options.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx, index) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 3),
+                            margin: EdgeInsets.only(top: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color.fromARGB(255, 94, 81, 81)),
+                            child: Text(
+                              state.options[index].name,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }),
+                  ),
+                )
+              ],
+            ),
+          ):Container(),
+          optionsEnabled&&state.options.isNotEmpty? Card(
+            elevation: 2,
+            margin: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => OptionsPage()));
+                        MaterialPageRoute(builder: (ctx) => const VariationsPage()));
                   },
-                )
-              : Container(),
-               Divider(height: 5,color: Colors.grey[100],),
-              state.options.length>1? ListTile(
-                subtitle: Text('Configure variations'),
-                onTap: (){
-                   Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => VariationsPage()));
-                },
-                title: Text('Variations'),
-                trailing: SizedBox(
+                  title: Text('Setup Variations'),
+                  subtitle: Text('Select and modify product variations'),
+                  trailing: SizedBox(
                     width: 20,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(state.variations.length.toString()),
+                        Text(state.selectedVariation.length.toString()),
                         const Icon(
                           Icons.arrow_forward_ios,
                           size: 14,
@@ -127,8 +152,39 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-              ):Container(),
-              state.options.length>1? Divider(height: 5,color: Colors.grey[100],):Container(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 30,
+                    child: ListView.separated(
+                        separatorBuilder: (ctx, index) {
+                          return SizedBox(
+                            width: 5,
+                          );
+                        },
+                        itemCount: state.selectedVariation.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx, index) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 3),
+                            margin: EdgeInsets.only(top: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color.fromARGB(255, 94, 81, 81)),
+                            child: Text(
+                              state.selectedVariation[index],
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }),
+                  ),
+                )
+              ],
+            ),
+          ):Container()
         ],
       ),
     );
