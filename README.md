@@ -20,6 +20,7 @@ Flutter based project on how users can add E-commerce product options and varian
 
 - Auto generating product variations
 - Selecting variations
+- Filter function to view `All` or `Selected` variations 
 - Modifying product variation details like `price` & `quantity`
 - Adding product options
 - Editing a product option
