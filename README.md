@@ -3,9 +3,9 @@
 #
  
 ### Download APK: 
-[app-arm64-v8a-release.apk](apk/app-arm64-v8a-release.apk)
-[app-armeabi-v7a-release.apk](apk/app-armeabi-v7a-release.apk)
-[app-x86_64-release.apk](apk/app-x86_64-release.apk)
+- [app-arm64-v8a-release.apk](apk/app-arm64-v8a-release.apk)
+- [app-armeabi-v7a-release.apk](apk/app-armeabi-v7a-release.apk)
+- [app-x86_64-release.apk](apk/app-x86_64-release.apk)
 
 #
 

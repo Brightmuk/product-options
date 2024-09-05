@@ -21,8 +21,10 @@ class OptionState extends ChangeNotifier {
   }
 
   List<ProductVariation> variations = [];
-  List<String> selectedVariation = [];
 
+  List<ProductVariation> get selectedVariations {
+    return variations.where((variation)=>variation.selected).toList();
+  }
   void modifyVariation(
     ProductVariation variation,
     int index,
@@ -31,15 +33,11 @@ class OptionState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectVariation(ProductVariation variation) {
-    selectedVariation.add(variation.description);
+  void selectVariation(int index, ProductVariation variation) {
+    variations.replaceRange(index,index+1, [variation.toggleSelection()]);
     notifyListeners();
   }
 
-  void unselectVariation(ProductVariation variation) {
-    selectedVariation.remove(variation.description);
-    notifyListeners();
-  }
 
   void removeVariation(ProductVariation variation) {
     variations.remove(variation);
