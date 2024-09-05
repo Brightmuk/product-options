@@ -45,7 +45,7 @@ class OptionState extends ChangeNotifier {
   }
 
   List<ProductVariation> generateCombinations() {
-    print('got here');
+    
     List<ProductVariation> combinations = [];
 
     void generate(List<String> current, int depth) {
@@ -61,7 +61,7 @@ class OptionState extends ChangeNotifier {
     }
 
     generate([], 0);
-    print('Finished');
+    
     return combinations;
   }
 }

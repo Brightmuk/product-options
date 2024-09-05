@@ -5,8 +5,8 @@ import 'package:product_options/models/variation.dart';
 import 'package:product_options/styles.dart';
 
 class VariationSettingsPage extends StatefulWidget {
-  final ProductVariation? variation;
-  const VariationSettingsPage({super.key, this.variation});
+  final ProductVariation variation;
+  const VariationSettingsPage({super.key, required this.variation});
 
   @override
   State<VariationSettingsPage> createState() => _VariationSettingsPageState();
@@ -22,11 +22,11 @@ class _VariationSettingsPageState extends State<VariationSettingsPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.variation != null) {
-      _nameController.text = widget.variation!.description;
-      _priceController.text = widget.variation!.price.toString();
-      _qunatityC.text = widget.variation!.quantity.toString();
-    }
+   
+      _nameController.text = widget.variation.description;
+      _priceController.text = widget.variation.price.toString();
+      _qunatityC.text = widget.variation.quantity.toString();
+    
   }
 
   @override
@@ -103,7 +103,7 @@ class _VariationSettingsPageState extends State<VariationSettingsPage> {
                       if (_formKey.currentState!.validate()) {
                         Navigator.pop(
                             context,
-                            ProductVariation(description: _nameController.value.text, price: int.parse(_priceController.value.text), quantity: int.parse(_qunatityC.value.text)));
+                            ProductVariation(selected: widget.variation!.selected, description: _nameController.value.text, price: int.parse(_priceController.value.text), quantity: int.parse(_qunatityC.value.text)));
                       }
                     },
                     child: const Text(
