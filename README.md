@@ -1,6 +1,6 @@
 # Product Options
 ## _Shopify like way to add product options & variations_
-![Home screenshot](https://github.com/Brightmuk/product-options/assets/screenshots/home_screen.png)
+![Home screenshot](assets/screenshots/home_screenshot.png)
 
 Flutter based project on how users can add E-commerce product options and variants UI/ UX as in [Shopify](https://admin.shopify.com/)
 
